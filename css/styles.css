@@ -77,6 +77,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .view > section + section { margin-top: 14px; }
 
 .jornada { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+/* El atributo hidden siempre gana: sin esto, label/.rel con display:flex se ven aunque estén ocultos. */
+[hidden] { display: none !important; }
+
 label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--muted); font-weight: 600; }
 label small { font-weight: 400; }
 input, select, textarea {

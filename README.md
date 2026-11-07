@@ -1,5 +1,7 @@
 # Control de Línea
 
+[![QualityOS](https://img.shields.io/badge/QualityOS-calidad_en_planta-0f5c6e?style=flat-square)](https://github.com/roca-byte)
+
 PWA para registrar las **recorridas de control** en las líneas de envasado y el **control final** de lotes, y sacar un **Reporte de Control del Día** gráfico para gerencia. Pensada para usarse en planta con una mano y guantes: botones grandes, pocos campos obligatorios y funcionamiento **sin señal**.
 
 Es una app separada de `informeCalidad`: aquella detalla desvíos de toda la planta con fotos; esta deja evidencia de que cada línea fue controlada, recorrida por recorrida, haya o no desvíos.

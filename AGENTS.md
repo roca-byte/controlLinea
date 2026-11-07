@@ -3,7 +3,7 @@
 Contexto para agentes de código (Claude Code, OpenCode, etc.). Leer entero antes de tocar nada.
 
 ## Qué es
-PWA para el **checker de calidad** de Empresa S.A. Registra el trabajo de control que se hace
+PWA para el **checker de calidad** de una planta de envasado. Registra el trabajo de control que se hace
 durante la jornada en las líneas de envasado, **haya o no desvíos**, y genera un
 **Reporte de Control del Día** gráfico para gerencia.
 

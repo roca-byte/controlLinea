@@ -1,6 +1,6 @@
 /*
  * brand.js — Configuración de marca (lo único que hay que tocar para cambiar la identidad).
- * Misma idea que en informeCalidad: copiar desde ahí el logo y los colores de la empresa.
+ * Misma idea que en informeCalidad: el repo no incluye logo ni datos de una empresa real.
  *
  * logo: ruta relativa (ej. 'assets/logo.png') o data URI. Vacío = sin logo.
  * colores: se aplican como variables CSS (--brand, --brand-ink).

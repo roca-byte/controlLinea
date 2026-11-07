@@ -38,7 +38,7 @@ HTML + CSS + JavaScript puro, **sin frameworks, sin npm y sin paso de build**. S
 │   ├── report.js           # Reporte del día y texto para compartir (Report)
 │   └── app.js              # Pantallas, formularios y eventos
 ├── icons/                  # Íconos de la app
-├── assets/                 # Logo real (ej. assets/logo.png)
+├── assets/                 # Logo opcional (ej. assets/logo.png; no incluido)
 ├── AGENTS.md / CLAUDE.md   # Contexto para agentes de IA
 ```
 

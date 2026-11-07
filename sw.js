@@ -3,7 +3,7 @@
  * IMPORTANTE: cada vez que cambies un archivo, subí el número de VERSION para que los
  * celulares descarguen la versión nueva.
  */
-const VERSION = 'control-linea-v12';
+const VERSION = 'control-linea-v13';
 const ARCHIVOS = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ const ARCHIVOS = [
   './js/report.js',
   './js/app.js',
   './manifest.webmanifest',
+  './icons/qualityos.svg',
   './icons/icon.svg',
   './icons/icon-192.png',
   './icons/icon-512.png'

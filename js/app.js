@@ -9,6 +9,38 @@
   const view = $('#view');
   const sheet = $('#sheet');
 
+  // ---------- empresa / logo (se guardan en este dispositivo) ----------
+  const MARCA_KEY = 'controlLinea.marca.v1';
+  const MARCA_BASE = { empresa: window.BRAND?.empresa || '', logo: window.BRAND?.logo || '' };
+  let marca = { empresa: '', logo: null };
+  try { marca = Object.assign(marca, JSON.parse(localStorage.getItem(MARCA_KEY) || '{}')); } catch (e) {}
+  function guardarMarca() {
+    try { localStorage.setItem(MARCA_KEY, JSON.stringify(marca)); return true; }
+    catch (e) { toast('No hay espacio para guardar el logo. Probá con uno más chico.'); return false; }
+  }
+  function aplicarMarcaGuardada() {
+    window.BRAND = window.BRAND || {};
+    window.BRAND.empresa = (marca.empresa || '').trim() || MARCA_BASE.empresa;
+    window.BRAND.logo = marca.logo?.d || MARCA_BASE.logo;
+  }
+  function leerLogo(file, cb) {
+    const r = new FileReader();
+    r.onload = () => {
+      const im = new Image();
+      im.onload = () => {
+        const k = Math.min(1, 800 / im.width, 300 / im.height);
+        const c = document.createElement('canvas');
+        c.width = Math.round(im.width * k);
+        c.height = Math.round(im.height * k);
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        cb({ d: c.toDataURL('image/png'), w: c.width, h: c.height });
+      };
+      im.onerror = () => toast('No se pudo leer esa imagen.');
+      im.src = r.result;
+    };
+    r.readAsDataURL(file);
+  }
+
   // Fecha de jornada: si ayer quedó una recorrida abierta (turno noche), seguimos en ayer.
   function fechaInicial() {
     const h = Store.hoy();
@@ -212,6 +244,19 @@
           <textarea name="turnos" rows="3">${esc(cfg.turnos.join('\n'))}</textarea></label>
         <button type="submit" class="btn btn-primary btn-block">Guardar ajustes</button>
       </form>
+      <section class="settings" id="secMarca">
+        <h2>Empresa</h2>
+        <p class="muted small">Se guarda solo en este dispositivo y se usa en el encabezado del reporte.</p>
+        <label>Nombre de la empresa <small>Aparece en el reporte si no cargás un logo.</small>
+          <input name="empresa" value="${esc(marca.empresa || '')}" placeholder="Ej: Alimentos del Sur S.A." autocomplete="organization">
+        </label>
+        <label>Logo de la empresa <small>Opcional. Reemplaza al nombre en el encabezado.</small></label>
+        <div class="logo-row">
+          <img id="logoPrev" alt="Logo cargado" ${marca.logo?.d ? `src="${marca.logo.d}"` : 'hidden'}>
+          <label class="btn btn-ghost file-btn">🖼️ <span id="logoTxt">${marca.logo ? 'Cambiar logo' : 'Elegir logo'}</span><input type="file" id="inLogo" accept="image/*" hidden></label>
+          <button type="button" class="btn btn-ghost" data-act="quitar-logo" ${marca.logo ? '' : 'hidden'}>Quitar logo</button>
+        </div>
+      </section>
       <section class="settings">
         <h2>Respaldo</h2>
         <p class="muted small">Los datos quedan guardados solo en este dispositivo. Descargá un respaldo cada tanto.</p>
@@ -551,6 +596,10 @@
       case 'cerrar-sheet':
         cerrarSheet();
         break;
+      case 'quitar-logo':
+        marca.logo = null;
+        if (guardarMarca()) { aplicarMarcaGuardada(); render(); toast('Logo quitado'); }
+        break;
       case 'imprimir':
         window.print();
         break;
@@ -579,6 +628,13 @@
     else if (t.id === 'inRepFecha') { ui.reporteFecha = t.value; render(); }
     // Se guarda por día: el PDF de esa jornada siempre sale igual.
     else if (t.id === 'inVerFinal') { Store.setOcultarFinal(ui.reporteFecha, !t.checked); render(); }
+    else if (t.id === 'inLogo' && t.files[0]) {
+      leerLogo(t.files[0], logo => {
+        marca.logo = logo;
+        if (guardarMarca()) { aplicarMarcaGuardada(); render(); toast('Logo guardado'); }
+      });
+      t.value = '';
+    }
     else if (t.id === 'inImport' && t.files[0]) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -588,6 +644,14 @@
         } catch (err) { alert(err.message || 'No se pudo leer el archivo.'); }
       };
       reader.readAsText(t.files[0]);
+    }
+  });
+
+  document.addEventListener('input', e => {
+    const t = e.target;
+    if (t.name === 'empresa' && t.closest('#secMarca')) {
+      marca.empresa = t.value;
+      if (guardarMarca()) aplicarMarcaGuardada();
     }
   });
 
@@ -610,6 +674,7 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) cerrarSheet(); });
 
   // ---------- inicio ----------
+  aplicarMarcaGuardada();
   aplicarMarca();
   render();
 

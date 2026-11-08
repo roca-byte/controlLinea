@@ -3,7 +3,7 @@
  * IMPORTANTE: cada vez que cambies un archivo, subí el número de VERSION para que los
  * celulares descarguen la versión nueva.
  */
-const VERSION = 'control-linea-v13';
+const VERSION = 'control-linea-v14';
 const ARCHIVOS = [
   './',
   './index.html',
@@ -32,10 +32,12 @@ self.addEventListener('activate', e => {
 });
 
 // Red primero (para tomar cambios), caché si no hay señal.
+// cache:'no-cache' obliga a revalidar con el servidor: evita que el navegador
+// sirva un JS viejo desde su caché HTTP después de publicar una versión nueva.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(res => {
         const copia = res.clone();
         caches.open(VERSION).then(c => c.put(e.request, copia));

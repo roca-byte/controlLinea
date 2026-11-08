@@ -234,6 +234,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); outline:
 .settings { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow); }
 .settings h2 { font-size: 1.05rem; }
 .settings p { margin: 0; }
+.logo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.logo-row img { max-height: 60px; max-width: 160px; width: auto; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px; }
+.logo-row img[hidden] { display: none; }
 
 /* ===== Barra de pestañas ===== */
 .tabbar {

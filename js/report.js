@@ -175,6 +175,8 @@ const Report = (() => {
     const magTxt = mags.length ? mags.map(([u, n]) => `${fmtNum(n)} ${esc(u)}`).join('<br>') : '—';
     const recs = x.d.recorridas;
     const franja = recs.length ? `${recs[0].inicio} a ${recs[recs.length - 1].fin || 'en curso'}` : '';
+    // Si hay logo, el nombre de la empresa no se repite al lado: el logo ya la identifica.
+    const subtitulo = [B.area, B.logo ? '' : B.empresa].filter(Boolean).join(', ');
 
     return `
     <div class="report" id="report">
@@ -182,7 +184,7 @@ const Report = (() => {
         ${B.logo ? `<img src="${esc(B.logo)}" alt="${esc(B.empresa || '')}" class="r-logo">` : ''}
         <div class="r-title">
           <h1>${esc(doc.titulo || 'Reporte de Control del Día')}</h1>
-          <p>${esc(B.area || '')}${B.empresa ? ', ' + esc(B.empresa) : ''}</p>
+          <p>${esc(subtitulo)}</p>
         </div>
         <dl class="r-meta">
           <div><dt>Fecha</dt><dd>${fmtFecha(fecha)}</dd></div>

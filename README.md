@@ -6,6 +6,8 @@ PWA para registrar las **recorridas de control** en las líneas de envasado y el
 
 Es una app separada de `informeCalidad`: aquella detalla desvíos de toda la planta con fotos; esta deja evidencia de que cada línea fue controlada, recorrida por recorrida, haya o no desvíos.
 
+**App publicada:** https://roca-byte.github.io/controlLinea/
+
 ## Características
 
 - **Recorridas** (R1, R2, R3…): la app lleva línea por línea, en el orden configurado. Por cada línea se marca el resultado:
@@ -20,6 +22,7 @@ Es una app separada de `informeCalidad`: aquella detalla desvíos de toda la pla
   - **Compartir resumen** como texto.
   - Casilla **Incluir Control final** para ocultarlo del reporte sin borrar datos.
 - **Respaldo JSON**: descarga y restauración de todos los datos desde Ajustes.
+- **Empresa y logo configurables**: en Ajustes se carga el nombre de la empresa y, opcionalmente, un logo. Se guardan solo en el dispositivo y se usan en el encabezado del reporte (si hay logo, reemplaza al nombre).
 - **Instalable y offline** gracias al service worker.
 
 ## Tecnologías
@@ -48,7 +51,7 @@ Orden de carga de los scripts: `brand` → `store` → `report` → `app`.
 
 ## Uso
 
-1. **Ajustes**: cargá tu nombre y las líneas en el orden en que las recorrés.
+1. **Ajustes**: cargá el nombre de la empresa, el logo (opcional) y las líneas en el orden en que las recorrés.
 2. **Recorrida**: tocá *Iniciar recorrida*. La app te lleva línea por línea; marcá Conforme, Ajuste en línea o Sin producción. Si hubo ajuste, completá la *Relevancia del evento*.
 3. **Control final**: registrá cada lote terminado antes del despacho.
 4. **Reporte**: elegí la jornada y tocá *Exportar PDF* o *Compartir resumen*.
@@ -73,7 +76,9 @@ Todas las rutas son relativas, así que funciona en cualquier subdirectorio.
 
 ## Personalización de la marca
 
-Todo se edita en `js/brand.js`:
+Lo más simple es cargar el nombre de la empresa y el logo desde **Ajustes**: quedan guardados en el dispositivo y se usan en el encabezado del reporte. Si hay logo, se muestra solo el logo; si no, el nombre de la empresa.
+
+Los valores de `js/brand.js` quedan como respaldo cuando la configuración está vacía:
 
 ```js
 window.BRAND = {

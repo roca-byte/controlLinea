@@ -25,11 +25,6 @@
     const root = document.documentElement.style;
     if (B.colores?.primario) root.setProperty('--brand', B.colores.primario);
     if (B.colores?.textoSobrePrimario) root.setProperty('--brand-ink', B.colores.textoSobrePrimario);
-    $('#brandEmpresa').textContent = B.empresa ? `QualityOS · ${B.empresa}` : 'QualityOS';
-    if (B.logo) {
-      const img = $('#brandLogo'); img.src = B.logo; img.hidden = false;
-      const marca = $('.q-mark'); if (marca) marca.hidden = true;
-    }
   }
 
   // ---------- utilidades UI ----------

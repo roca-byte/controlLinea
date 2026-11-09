@@ -2,103 +2,64 @@
 
 [![QualityOS](https://img.shields.io/badge/QualityOS-calidad_en_planta-0f5c6e?style=flat-square)](https://github.com/roca-byte)
 
-PWA para registrar las **recorridas de control** en las líneas de envasado y el **control final** de lotes, y sacar un **Reporte de Control del Día** gráfico para gerencia. Pensada para usarse en planta con una mano y guantes: botones grandes, pocos campos obligatorios y funcionamiento **sin señal**.
+App para registrar las **recorridas de control** en las líneas de envasado y el **control
+final** de lotes, y sacar al final del turno un **reporte del día** gráfico, listo para
+gerencia. Pensada para usarse en planta, con una mano y guantes, y aunque no haya señal.
 
-Es una app separada de `informeCalidad`: aquella detalla desvíos de toda la planta con fotos; esta deja evidencia de que cada línea fue controlada, recorrida por recorrida, haya o no desvíos.
+**Abrir la app:** https://roca-byte.github.io/controlLinea/
 
-**App publicada:** https://roca-byte.github.io/controlLinea/
+## Para qué sirve
 
-## Características
+Deja evidencia de que **cada línea fue controlada**, recorrida por recorrida, haya habido
+desvíos o no. En lugar de una planilla en papel que después se pasa en limpio, cada control
+se marca en el momento con un toque, y el reporte se arma solo.
 
-- **Recorridas** (R1, R2, R3…): la app lleva línea por línea, en el orden configurado. Por cada línea se marca el resultado:
+## Qué podés hacer
+
+- **Recorridas** (R1, R2, R3…): la app te lleva línea por línea, en el orden de tu planta.
+  En cada una marcás:
   - **Conforme**
-  - **Ajuste en línea**
+  - **Ajuste en línea**: anotás qué se detectó o corrigió y, si querés, la magnitud
+    (litros, kilos, unidades, minutos…).
   - **Sin producción**
-- **Relevancia del evento**: si hubo ajuste, se registra qué se detectó o corrigió y la magnitud opcional (L, kg, unidades, min…).
-- **Control final** de lotes terminados antes del despacho: **Conforme**, **Parcial** (algunos pallets no están OK, con cantidad), **Reprocesado** o **No conforme**.
-- **Correcciones posteriores**: se pueden editar los horarios de inicio/fin y la hora de cada control, agregar con "+ Línea" las que faltaron en una recorrida cerrada, y clonar o renumerar recorridas.
-- **Reporte del día** pensado para leerse en segundos (gráfico antes que texto):
-  - **Exportar PDF** (A4, vía "Guardar como PDF").
-  - **Compartir resumen** como texto.
-  - Casilla **Incluir Control final** para ocultarlo del reporte sin borrar datos.
-- **Respaldo JSON**: descarga y restauración de todos los datos desde Ajustes.
-- **Empresa y logo configurables**: en Ajustes se carga el nombre de la empresa y, opcionalmente, un logo. Se guardan solo en el dispositivo y se usan en el encabezado del reporte (si hay logo, reemplaza al nombre).
-- **Instalable y offline** gracias al service worker.
+- **Control final** de cada lote terminado antes del despacho: **Conforme**, **Parcial**
+  (algunos pallets no están bien, con la cantidad), **Reprocesado** o **No conforme**.
+- **Corregir después**: cambiar horarios, agregar una línea que quedó sin cargar en una
+  recorrida cerrada, y clonar o renumerar recorridas.
+- **Reporte del día**, pensado para leerse en segundos (más gráfico que texto):
+  - **Exportar a PDF** en hoja A4.
+  - **Compartir un resumen** como texto (WhatsApp, mail).
+  - Elegir si el reporte incluye o no el control final.
+- **Adaptarla a tu planta**: nombre y logo de la empresa, tus líneas en el orden en que las
+  recorrés, turnos y unidades (pestaña **Ajustes**).
 
-## Tecnologías
+## Cómo se usa
 
-HTML + CSS + JavaScript puro, **sin frameworks, sin npm y sin paso de build**. Scripts clásicos (sin módulos), un objeto global por archivo. Datos en `localStorage` (clave `controlLinea.v1`). Sin login ni backend.
-
-## Estructura
-
-```
-├── index.html              # Estructura: barra superior, <main id="view"> y pestañas
-├── manifest.webmanifest    # Datos de instalación PWA
-├── sw.js                   # Service worker (red primero, caché sin señal)
-├── css/
-│   └── styles.css          # Estilos mobile first y reglas @media print (A4)
-├── js/
-│   ├── brand.js            # Marca configurable (BRAND)
-│   ├── store.js            # Capa de datos (Store)
-│   ├── report.js           # Reporte del día y texto para compartir (Report)
-│   └── app.js              # Pantallas, formularios y eventos
-├── icons/                  # Íconos de la app
-├── assets/                 # Logo opcional (ej. assets/logo.png; no incluido)
-├── AGENTS.md / CLAUDE.md   # Contexto para agentes de IA
-```
-
-Orden de carga de los scripts: `brand` → `store` → `report` → `app`.
-
-## Uso
-
-1. **Ajustes**: cargá el nombre de la empresa, el logo (opcional) y las líneas en el orden en que las recorrés.
-2. **Recorrida**: tocá *Iniciar recorrida*. La app te lleva línea por línea; marcá Conforme, Ajuste en línea o Sin producción. Si hubo ajuste, completá la *Relevancia del evento*.
+1. **Ajustes**: cargá el nombre de la empresa, el logo (opcional) y las líneas en el orden en
+   que las recorrés.
+2. **Recorrida**: tocá *Iniciar recorrida*. La app te lleva línea por línea; marcá Conforme,
+   Ajuste en línea o Sin producción. Si hubo un ajuste, completá qué pasó.
 3. **Control final**: registrá cada lote terminado antes del despacho.
 4. **Reporte**: elegí la jornada y tocá *Exportar PDF* o *Compartir resumen*.
 
-Los datos quedan solo en el celular: descargá un respaldo desde Ajustes cada tanto.
+## Instalarla en el celular
 
-Para probarla en local (con `file://` el service worker no funciona):
+1. Abrí el link de la app.
+2. **Android (Chrome):** menú ⋮ → *Instalar app* (o *Agregar a la pantalla principal*).
+   **iPhone (Safari):** botón Compartir → *Agregar a inicio*.
+3. Listo: queda como una app más y, después de abrirla una vez, funciona sin señal.
 
-```bash
-python3 -m http.server 8000
-```
+## Tus datos
 
-Abrir `http://localhost:8000`.
+- Todo lo que cargás queda **solo en tu dispositivo**. No hay cuentas ni servidor.
+- Si borrás los datos del navegador o cambiás de celular, se pierden. En **Ajustes** podés
+  **descargar un respaldo** y después **restaurarlo**. Hacelo cada tanto.
 
-## Publicar en GitHub Pages
+## Licencia
 
-1. Subir todos los archivos de esta carpeta al repo.
-2. Settings → Pages → Deploy from branch → `main` / `(root)`.
-3. Abrir la URL en Chrome del celular → menú → *Instalar app*.
+Libre para usar, copiar y modificar ([MIT](LICENSE)). © 2026 Maximiliano Roca.
 
-Todas las rutas son relativas, así que funciona en cualquier subdirectorio.
+---
 
-## Personalización de la marca
-
-Lo más simple es cargar el nombre de la empresa y el logo desde **Ajustes**: quedan guardados en el dispositivo y se usan en el encabezado del reporte. Si hay logo, se muestra solo el logo; si no, el nombre de la empresa.
-
-Los valores de `js/brand.js` quedan como respaldo cuando la configuración está vacía:
-
-```js
-window.BRAND = {
-  empresa: '...',
-  area: 'Departamento de Calidad',
-  logo: '',                  // ej: 'assets/logo.png' (vacío = sin logo)
-  colores: {
-    primario: '#0f5c6e',     // barra superior, botones y títulos del reporte
-    textoSobrePrimario: '#ffffff'
-  },
-  documento: {
-    titulo: 'Reporte de Control del Día',
-    codigo: '',              // código de registro controlado (opcional)
-    revision: ''
-  }
-};
-```
-
-## Notas de mantenimiento
-
-- Al cambiar cualquier archivo, subir `VERSION` en `sw.js` y mantener `ARCHIVOS` al día; si no, los celulares siguen con la versión vieja.
-- Si cambia la forma de los datos, subir la clave a `controlLinea.v2` y migrar desde v1 en `load()` para no perder datos.
-- Los datos viven en el dispositivo: borrar los datos del navegador los elimina, por eso conviene el respaldo.
+Parte de la suite [**QualityOS**](https://github.com/roca-byte) · Información técnica para
+modificarla: [DESARROLLO.md](DESARROLLO.md)

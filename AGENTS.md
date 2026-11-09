@@ -7,7 +7,7 @@ PWA para el **checker de calidad** de una planta de envasado. Registra el trabaj
 durante la jornada en las líneas de envasado, **haya o no desvíos**, y genera un
 **Reporte de Control del Día** gráfico para gerencia.
 
-Es una app **separada** de `informeCalidad` (repo `maxyroca7/informeCalidad`):
+Es una app **separada** de `informeCalidad` (repo `roca-byte/informeCalidad`):
 - `informeCalidad` → detalla desvíos de toda la planta (dentro y fuera de las líneas), con fotos.
 - `controlLinea` (esta) → evidencia de que cada línea fue controlada, recorrida por recorrida.
 
@@ -96,7 +96,7 @@ sin producción) → cerrar → segunda recorrida (producto y lote se precargan)
 con un no conforme → Reporte → Exportar PDF.
 
 ## Deploy
-GitHub Pages igual que informeCalidad: repo nuevo (ej. `maxyroca7/controlLinea`),
+GitHub Pages igual que informeCalidad: repo `roca-byte/controlLinea`,
 Settings → Pages → Deploy from branch → `main` / `(root)`.
 
 ## Ideas para después (no hacer sin que el usuario lo pida)

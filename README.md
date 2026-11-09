@@ -6,7 +6,9 @@ App para registrar las **recorridas de control** en las líneas de envasado y el
 final** de lotes, y sacar al final del turno un **reporte del día** gráfico, listo para
 gerencia. Pensada para usarse en planta, con una mano y guantes, y aunque no haya señal.
 
-**Abrir la app:** https://roca-byte.github.io/controlLinea/
+**[Abrir la app](https://roca-byte.github.io/controlLinea/)** · **[Video (1:13)](docs/video/control-linea-demo.mp4)** · **[Guía de uso con capturas](docs/GUIA.md)**
+
+<p align="center"><img src="docs/img/demo.gif" alt="Recorrida en la app: se marcan las líneas, se carga un ajuste y se cierra la recorrida" width="280"></p>
 
 ## Para qué sirve
 
@@ -41,6 +43,8 @@ se marca en el momento con un toque, y el reporte se arma solo.
    Ajuste en línea o Sin producción. Si hubo un ajuste, completá qué pasó.
 3. **Control final**: registrá cada lote terminado antes del despacho.
 4. **Reporte**: elegí la jornada y tocá *Exportar PDF* o *Compartir resumen*.
+
+Paso a paso, con capturas: [docs/GUIA.md](docs/GUIA.md).
 
 ## Instalarla en el celular
 

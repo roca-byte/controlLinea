@@ -23,6 +23,8 @@ HTML + CSS + JavaScript puro, **sin frameworks, sin npm y sin paso de build**. S
 ├── icons/                  # Íconos de la app
 ├── assets/                 # Logo opcional (ej. assets/logo.png; no incluido)
 ├── AGENTS.md / CLAUDE.md   # Contexto para agentes de IA
+├── docs/                   # Guía de uso (GUIA.md), capturas, GIF y video (no son parte de la app)
+├── tools/                  # Scripts que generan docs/ con Playwright (no son parte de la app)
 ```
 
 Orden de carga de los scripts: `brand` → `store` → `report` → `app`.
@@ -36,6 +38,27 @@ python3 -m http.server 8000
 ```
 
 Abrir `http://localhost:8000`.
+
+## Guía, GIF y video
+
+`docs/GUIA.md` usa las capturas de `docs/img/` y el video de `docs/video/`, generados por
+`tools/` con datos inventados ("Envasadora Demo S.A.", `tools/ejemplo.js`) que se escriben en
+el `localStorage` del navegador de la grabación antes de abrir la app. La app no se toca y
+sigue sin build: Playwright se instala solo dentro de `tools/` (`tools/node_modules`, fuera de
+git). `docs/` y `tools/` no van en `ARCHIVOS` de `sw.js`.
+
+Necesita Node, `python3` (sirve la app con `http.server`) y `ffmpeg`:
+
+```bash
+cd tools
+npm install
+npx playwright install chromium   # una sola vez
+node demo.js    # capturas docs/img/*.png y docs/img/demo.gif
+node video.js   # docs/video/control-linea-demo.mp4 (≤ 90 s, H.264)
+```
+
+Volver a generarlos cuando cambie algo visible de la app, y mirar el resultado antes de
+subirlo (que no haya toasts, pantallas vacías ni texto cortado).
 
 ## Publicar en GitHub Pages
 

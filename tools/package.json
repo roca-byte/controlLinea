@@ -1,0 +1,12 @@
+{
+  "name": "control-linea-tools",
+  "private": true,
+  "description": "Herramientas para generar la guía, el GIF y el video. No son parte de la app (que sigue sin build ni dependencias).",
+  "scripts": {
+    "capturas": "node demo.js",
+    "video": "node video.js"
+  },
+  "devDependencies": {
+    "playwright": "1.65.0"
+  }
+}

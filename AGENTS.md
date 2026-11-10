@@ -95,6 +95,12 @@ Checklist manual: iniciar recorrida → cargar las líneas (conforme / ajuste co
 sin producción) → cerrar → segunda recorrida (producto y lote se precargan) → control final
 con un no conforme → Reporte → Exportar PDF.
 
+## Guía y demo
+`docs/GUIA.md` (guía para usuarios con capturas), `docs/img/demo.gif` y
+`docs/video/control-linea-demo.mp4` se generan con `tools/demo.js` y `tools/video.js`
+(ver DESARROLLO.md). Si cambia algo visible de la app, regenerarlos y revisar la guía.
+`docs/` y `tools/` no son parte de la app: no van en `ARCHIVOS` de `sw.js`.
+
 ## Deploy
 GitHub Pages igual que informeCalidad: repo nuevo (ej. `maxyroca7/controlLinea`),
 Settings → Pages → Deploy from branch → `main` / `(root)`.

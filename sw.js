@@ -3,7 +3,7 @@
  * IMPORTANTE: cada vez que cambies un archivo, subí el número de VERSION para que los
  * celulares descarguen la versión nueva.
  */
-const VERSION = 'control-linea-v16';
+const VERSION = 'control-linea-v17';
 const ARCHIVOS = [
   './',
   './index.html',
@@ -24,9 +24,14 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
+  // Las apps de la suite comparten dominio (roca-byte.github.io) y por eso comparten las cachés:
+  // se borran SOLO las versiones viejas de esta app. Antes se borraba todo lo que no fuera la
+  // versión actual, y al instalar o actualizar otra app de la suite esta dejaba de abrir sin señal.
   e.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys
+        .filter(k => k.startsWith('control-linea-') && k !== VERSION)
+        .map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
